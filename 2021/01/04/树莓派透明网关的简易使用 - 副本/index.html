@@ -4,15 +4,31 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>树莓派透明网关的简易使用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="树莓派透明网关搭建流程在开始之前由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程 我们需要的材料有  树莓派一个 网线 光猫 路由器  树莓派部分固件烧写这里我们使用了OpenWrt-Rpi作为树莓派固件 该固件预置相当多且实用的程序，其中就包含了我们所需要的PassWall的有关程序应用 前往Action获取最新的固件，解压出文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派透明网关的简易使用">
+<meta property="og:url" content="http://example.com/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8%20-%20%E5%89%AF%E6%9C%AC/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="树莓派透明网关搭建流程在开始之前由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程 我们需要的材料有  树莓派一个 网线 光猫 路由器  树莓派部分固件烧写这里我们使用了OpenWrt-Rpi作为树莓派固件 该固件预置相当多且实用的程序，其中就包含了我们所需要的PassWall的有关程序应用 前往Action获取最新的固件，解压出文件">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104184713.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104185022.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190516.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190558.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190624.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190701.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190721.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190737.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190753.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190811.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190830.png">
+<meta property="article:published_time" content="2021-01-04T09:21:16.000Z">
+<meta property="article:modified_time" content="2021-01-04T11:09:45.750Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104184713.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,9 +85,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-树莓派透明网关的简易使用 - 副本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-树莓派透明网关的简易使用 - 副本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8%20-%20%E5%89%AF%E6%9C%AC/" class="article-date">
   <time class="dt-published" datetime="2021-01-04T09:21:16.000Z" itemprop="datePublished">2021-01-04</time>
@@ -84,8 +98,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8%20-%20%E5%89%AF%E6%9C%AC/">树莓派透明网关的简易使用</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      树莓派透明网关的简易使用
     </h1>
   
 
@@ -158,103 +172,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-树莓派透明网关的简易使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2021-01-04T09:21:16.000Z" itemprop="datePublished">2021-01-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/">树莓派透明网关的简易使用</a>
-    </h1>
+    <a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">树莓派透明网关的简易使用</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="树莓派透明网关搭建流程"><a href="#树莓派透明网关搭建流程" class="headerlink" title="树莓派透明网关搭建流程"></a>树莓派透明网关搭建流程</h1><h2 id="在开始之前"><a href="#在开始之前" class="headerlink" title="在开始之前"></a>在开始之前</h2><p>由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程</p>
-<p>我们需要的材料有</p>
-<ul>
-<li>树莓派一个</li>
-<li>网线</li>
-<li>光猫</li>
-<li>路由器</li>
-</ul>
-<h2 id="树莓派部分"><a href="#树莓派部分" class="headerlink" title="树莓派部分"></a>树莓派部分</h2><h3 id="固件烧写"><a href="#固件烧写" class="headerlink" title="固件烧写"></a>固件烧写</h3><p>这里我们使用了<a target="_blank" rel="noopener" href="https://github.com/SuLingGG/OpenWrt-Rpi">OpenWrt-Rpi</a>作为树莓派固件</p>
-<p>该固件预置相当多且实用的程序，其中就包含了我们所需要的<strong>PassWall</strong>的有关程序应用<img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104184713.png"></p>
-<p>前往<a target="_blank" rel="noopener" href="https://github.com/SuLingGG/OpenWrt-Rpi/actions?query=workflow:%22Build+Raspberry+Pi+4+Lean%27s+OpenWrt%22">Action</a>获取最新的固件，解压出文件名应该类似于<code>openwrt-bcm27xx-bcm2711-rpi-4-ext4-factory.img</code>。使用镜像烧写软件<strong>balenaEtcher</strong>将img文件刷进SD卡<img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104185022.png"></p>
-<blockquote>
-<p><strong>注意！ 这项操作将会抹除该SD卡上的所有内容，如果你失误选择了一块本地的磁盘来刷入镜像，恭喜你，你将会失去这块磁盘上的所有数据</strong></p>
-</blockquote>
-<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><strong>请先不要为树莓派联网</strong></p>
-<hr>
-<p>方法一（推荐）：</p>
-<p>将固件刷入 SD 卡，<strong>断开树莓派上所有的网线连接</strong>，将 SD 卡插入树莓派通电开机，稍等 30 秒你将可以搜索到一个 SSID 为： OpenWrt 的 WIFI 热点，连接此热点，在浏览器地址栏输入：</p>
-<p><a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a></p>
-<p>即可进入 Luci 控制面板。登陆控制面板时用户名默认为 <strong>root</strong>，密码默认为 <strong>password</strong>。</p>
-<p>若没有发现热点，请给树莓派断电然后再次上电。</p>
-<hr>
-<p>方法二：</p>
-<p>将固件刷入 SD 卡，将 SD 卡插入树莓派通电开机，关闭电脑的其他网络连接，使用网线连接树莓派和电脑，当电脑提示有线网络已连接后，在浏览器输入:</p>
-<p><a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a></p>
-<p>来进入控制面板。登陆控制面板时用户名默认为 <strong>root</strong>，密码默认为 <strong>password</strong>。</p>
-<hr>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190516.png"></p>
-<p>登陆进入面板，进入<strong>系统-TTYD终端</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190558.png"></p>
-<p>键入以下命令</p>
-<p><code>vi /etc/config/network</code></p>
-<p>按 i 进入编辑模式，将框出部分改成网关/光猫网段下的一个地址，稍微大一些，避免和光猫下的路由器发生冲突，我这里改成了192.168.1.100</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190624.png"></p>
-<p>配置完成后 按 Esc ，输入<code>:wq</code> 按回车保存 </p>
-<p>现在给树莓派断电，将树莓派的网线连入网关/光猫，上电</p>
-<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>进入到路由器管理页面 打开-&gt;网络-&gt;接口-&gt;LAN-&gt;修改</p>
-<p>删除其他不必要的接口，只保留一个LAN</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190701.png"></p>
-<p>如图设置</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190721.png"></p>
-<p>拉到底端，保存&amp;应用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190737.png"></p>
-<p>服务-&gt;PassWall，点击百度连接查看树莓派是否联网</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190753.png"></p>
-<p>点击上方的节点列表，自行添加节点，保存&amp;应用，涉及敏感图片这里就不作截图展示了</p>
-<p>在基本设置-&gt;主要一栏中选择相对应节点，打开主开关，保存&amp;应用，试试看能否进行谷歌连接，如果可以连上，那么树莓派设置就告一段落了。</p>
-<hr>
-<h2 id="路由器设置"><a href="#路由器设置" class="headerlink" title="路由器设置"></a>路由器设置</h2><p>进入你家的路由器管理页，他大概率被网关/光猫的地址给挤掉了，尝试一下192.168.1.1的附近地址，我家是192.168.3.1</p>
-<p>大概这么填</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190811.png"></p>
-<p>可以看到成功的访问了谷歌<img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190830.png"></p>
-<hr>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>其实回顾一下并不难，折腾了好几个小时其实全都是因为对组网的不熟悉，如果你能了解清楚你家网路关系的状况那么假设将会更加顺利</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" data-id="ckjijn4mk0001dk695varhb3n" data-title="树莓派透明网关的简易使用" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
