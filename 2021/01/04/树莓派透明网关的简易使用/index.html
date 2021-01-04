@@ -4,15 +4,31 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>树莓派透明网关的简易使用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="树莓派透明网关搭建流程在开始之前由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程 我们需要的材料有  树莓派一个 网线 光猫 路由器  树莓派部分固件烧写这里我们使用了OpenWrt-Rpi作为树莓派固件 该固件预置相当多且实用的程序，其中就包含了我们所需要的PassWall的有关程序应用 前往Action获取最新的固件，解压出文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派透明网关的简易使用">
+<meta property="og:url" content="http://example.com/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="树莓派透明网关搭建流程在开始之前由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程 我们需要的材料有  树莓派一个 网线 光猫 路由器  树莓派部分固件烧写这里我们使用了OpenWrt-Rpi作为树莓派固件 该固件预置相当多且实用的程序，其中就包含了我们所需要的PassWall的有关程序应用 前往Action获取最新的固件，解压出文件">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104184713.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104185022.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190516.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190558.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190624.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190701.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190721.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190737.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190753.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190811.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190830.png">
+<meta property="article:published_time" content="2021-01-04T09:21:16.000Z">
+<meta property="article:modified_time" content="2021-01-04T11:09:45.750Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104184713.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,9 +85,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-树莓派透明网关的简易使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-树莓派透明网关的简易使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" class="article-date">
   <time class="dt-published" datetime="2021-01-04T09:21:16.000Z" itemprop="datePublished">2021-01-04</time>
@@ -84,8 +98,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/">树莓派透明网关的简易使用</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      树莓派透明网关的简易使用
     </h1>
   
 
@@ -158,11 +172,9 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
   
+</article>
 
 
 </section>
