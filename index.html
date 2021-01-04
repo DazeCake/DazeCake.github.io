@@ -1,248 +1,182 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DazeCake 的 工坊</title><meta name="author" content="DazeCake,dazecake@mamoe.net"><meta name="copyright" content="DazeCake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta property="og:type" content="website">
+<meta property="og:title" content="DazeCake 的 工坊">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="og:site_name" content="DazeCake 的 工坊">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:author" content="DazeCake">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+<meta name="twitter:image" content="http://example.com/null"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
 
-  
-<meta name="generator" content="Hexo 5.3.0"></head>
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-树莓派透明网关的简易使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2021-01-04T09:21:16.000Z" itemprop="datePublished">2021-01-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/">树莓派透明网关的简易使用</a>
-    </h1>
-  
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-01-04 22:37:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="树莓派透明网关搭建流程"><a href="#树莓派透明网关搭建流程" class="headerlink" title="树莓派透明网关搭建流程"></a>树莓派透明网关搭建流程</h1><h2 id="在开始之前"><a href="#在开始之前" class="headerlink" title="在开始之前"></a>在开始之前</h2><p>由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程</p>
-<p>我们需要的材料有</p>
-<ul>
-<li>树莓派一个</li>
-<li>网线</li>
-<li>光猫</li>
-<li>路由器</li>
-</ul>
-<h2 id="树莓派部分"><a href="#树莓派部分" class="headerlink" title="树莓派部分"></a>树莓派部分</h2><h3 id="固件烧写"><a href="#固件烧写" class="headerlink" title="固件烧写"></a>固件烧写</h3><p>这里我们使用了<a target="_blank" rel="noopener" href="https://github.com/SuLingGG/OpenWrt-Rpi">OpenWrt-Rpi</a>作为树莓派固件</p>
-<p>该固件预置相当多且实用的程序，其中就包含了我们所需要的<strong>PassWall</strong>的有关程序应用<img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104184713.png"></p>
-<p>前往<a target="_blank" rel="noopener" href="https://github.com/SuLingGG/OpenWrt-Rpi/actions?query=workflow:%22Build+Raspberry+Pi+4+Lean%27s+OpenWrt%22">Action</a>获取最新的固件，解压出文件名应该类似于<code>openwrt-bcm27xx-bcm2711-rpi-4-ext4-factory.img</code>。使用镜像烧写软件<strong>balenaEtcher</strong>将img文件刷进SD卡<img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104185022.png"></p>
-<blockquote>
-<p><strong>注意！ 这项操作将会抹除该SD卡上的所有内容，如果你失误选择了一块本地的磁盘来刷入镜像，恭喜你，你将会失去这块磁盘上的所有数据</strong></p>
-</blockquote>
-<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><strong>请先不要为树莓派联网</strong></p>
-<hr>
-<p>方法一（推荐）：</p>
-<p>将固件刷入 SD 卡，<strong>断开树莓派上所有的网线连接</strong>，将 SD 卡插入树莓派通电开机，稍等 30 秒你将可以搜索到一个 SSID 为： OpenWrt 的 WIFI 热点，连接此热点，在浏览器地址栏输入：</p>
-<p><a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a></p>
-<p>即可进入 Luci 控制面板。登陆控制面板时用户名默认为 <strong>root</strong>，密码默认为 <strong>password</strong>。</p>
-<p>若没有发现热点，请给树莓派断电然后再次上电。</p>
-<hr>
-<p>方法二：</p>
-<p>将固件刷入 SD 卡，将 SD 卡插入树莓派通电开机，关闭电脑的其他网络连接，使用网线连接树莓派和电脑，当电脑提示有线网络已连接后，在浏览器输入:</p>
-<p><a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a></p>
-<p>来进入控制面板。登陆控制面板时用户名默认为 <strong>root</strong>，密码默认为 <strong>password</strong>。</p>
-<hr>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190516.png"></p>
-<p>登陆进入面板，进入<strong>系统-TTYD终端</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190558.png"></p>
-<p>键入以下命令</p>
-<p><code>vi /etc/config/network</code></p>
-<p>按 i 进入编辑模式，将框出部分改成网关/光猫网段下的一个地址，稍微大一些，避免和光猫下的路由器发生冲突，我这里改成了192.168.1.100</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190624.png"></p>
-<p>配置完成后 按 Esc ，输入<code>:wq</code> 按回车保存 </p>
-<p>现在给树莓派断电，将树莓派的网线连入网关/光猫，上电</p>
-<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>进入到路由器管理页面 打开-&gt;网络-&gt;接口-&gt;LAN-&gt;修改</p>
-<p>删除其他不必要的接口，只保留一个LAN</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190701.png"></p>
-<p>如图设置</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190721.png"></p>
-<p>拉到底端，保存&amp;应用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190737.png"></p>
-<p>服务-&gt;PassWall，点击百度连接查看树莓派是否联网</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190753.png"></p>
-<p>点击上方的节点列表，自行添加节点，保存&amp;应用，涉及敏感图片这里就不作截图展示了</p>
-<p>在基本设置-&gt;主要一栏中选择相对应节点，打开主开关，保存&amp;应用，试试看能否进行谷歌连接，如果可以连上，那么树莓派设置就告一段落了。</p>
-<hr>
-<h2 id="路由器设置"><a href="#路由器设置" class="headerlink" title="路由器设置"></a>路由器设置</h2><p>进入你家的路由器管理页，他大概率被网关/光猫的地址给挤掉了，尝试一下192.168.1.1的附近地址，我家是192.168.3.1</p>
-<p>大概这么填</p>
-<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190811.png"></p>
-<p>可以看到成功的访问了谷歌<img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190830.png"></p>
-<hr>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>其实回顾一下并不难，折腾了好几个小时其实全都是因为对组网的不熟悉，如果你能了解清楚你家网路关系的状况那么假设将会更加顺利</p>
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a></div></div></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">DazeCake 的 工坊</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">DazeCake 的 工坊</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" title="树莓派透明网关的简易使用">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派透明网关的简易使用"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" title="树莓派透明网关的简易使用">树莓派透明网关的简易使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-01-04T09:21:16.000Z" title="发表于 2021-01-04 17:21:16">2021-01-04</time></span></div><div class="content">树莓派透明网关搭建流程在开始之前由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程
+我们需要的材料有
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" data-id="ckjijspog0000q4692sqy3xom" data-title="树莓派透明网关的简易使用" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
+树莓派一个
+网线
+光猫
+路由器
 
+树莓派部分固件烧写这里我们使用了OpenWrt-Rpi作为树莓派固件
+该固件预置相当多且实用的程序，其中就包含了我们所需要的PassWall的有关程序应用
+前往Action获取最新的固件，解压出文件名应该类似于openwrt-bcm27xx-bcm2711-rpi-4-ext4-factory.img。使用镜像烧写软件balenaEtcher将img文件刷进SD卡
 
+注意！ 这项操作将会抹除该SD卡上的所有内容，如果你失误选择了一块本地的磁盘来刷入镜像，恭喜你，你将会失去这块磁盘上的所有数据
 
-  
+初始化请先不要为树莓派联网
 
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/">树莓派透明网关的简易使用</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+方法一（推荐）：
+将固件刷入 SD 卡，断开树莓派上所有的网线连接，将 SD 卡插入树莓派通电开机，稍等 30 秒你将可以搜索到一个 SSID 为： OpenWrt 的 WIFI 热点，连接此热点，在浏览器地址栏输入：
+http://192.168.1.1
+即可进入  ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">DazeCake</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" title="树莓派透明网关的简易使用"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派透明网关的简易使用"/></a><div class="content"><a class="title" href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/" title="树莓派透明网关的简易使用">树莓派透明网关的简易使用</a><time datetime="2021-01-04T09:21:16.000Z" title="发表于 2021-01-04 17:21:16">2021-01-04</time></div></div></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/01/"><span class="card-archive-list-date">一月 2021</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">1</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-01-04T14:37:47.558Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By DazeCake</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
