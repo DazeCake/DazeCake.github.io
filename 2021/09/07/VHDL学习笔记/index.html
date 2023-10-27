@@ -1,0 +1,566 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>VHDL学习笔记 | DazeCake的工坊</title><meta name="author" content="DazeCake,dazecake@mamoe.net"><meta name="copyright" content="DazeCake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基本设计单元 Library （库）  库主要存放已经编译过的实体、结构体、程序包和配置;   Package（程序包）  程序包主要用来存放各个设计都能共享的数据类型、子程序说明、属性说明、元件说明等部分。   Entity（实体）  用来说明模型的外部特征   Architecture（结构体）  来定义模型的功能   Configuration（配置）  将实体和它的结构体联系起来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VHDL学习笔记">
+<meta property="og:url" content="http://example.com/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="DazeCake的工坊">
+<meta property="og:description" content="基本设计单元 Library （库）  库主要存放已经编译过的实体、结构体、程序包和配置;   Package（程序包）  程序包主要用来存放各个设计都能共享的数据类型、子程序说明、属性说明、元件说明等部分。   Entity（实体）  用来说明模型的外部特征   Architecture（结构体）  来定义模型的功能   Configuration（配置）  将实体和它的结构体联系起来">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png">
+<meta property="article:published_time" content="2021-09-07T05:09:40.000Z">
+<meta property="article:modified_time" content="2021-09-07T07:12:45.040Z">
+<meta property="article:author" content="DazeCake">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VHDL学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-09-07 15:12:45'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png')"><nav id="nav"><span id="blog-info"><a href="/" title="DazeCake的工坊"><span class="site-name">DazeCake的工坊</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VHDL学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-09-07T05:09:40.000Z" title="发表于 2021-09-07 13:09:40">2021-09-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-09-07T07:12:45.040Z" title="更新于 2021-09-07 15:12:45">2021-09-07</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VHDL学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="基本设计单元"><a href="#基本设计单元" class="headerlink" title="基本设计单元"></a>基本设计单元</h1><ol>
+<li><p>Library （库）</p>
+<ul>
+<li>库主要存放已经编译过的实体、结构体、程序包和配置;</li>
+</ul>
+</li>
+<li><p>Package（程序包）</p>
+<ul>
+<li>程序包主要用来存放各个设计都能共享的数据类型、子程序说明、属性说明、元件说明等部分。</li>
+</ul>
+</li>
+<li><p>Entity（实体）</p>
+<ul>
+<li>用来说明模型的外部特征</li>
+</ul>
+</li>
+<li><p>Architecture（结构体）</p>
+<ul>
+<li>来定义模型的功能</li>
+</ul>
+</li>
+<li><p>Configuration（配置）</p>
+<ul>
+<li>将实体和它的结构体联系起来</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><blockquote>
+<p>库是专门用于存放预先编译好的程序包的地方，对应一个文件目录，程序包的文件就放在此目录中，其功能相当于共享资源的仓库，所有已完成的设计资源只有存入某个“库”内才可以被其他实体共享。库的说明总是放在设计单元的最前面，表示该库资源对以下的设计单元开放。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LIBRARY</span> 库名 ;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>IEEE库：是VHDL设计中最常用的资源库，包含IEEE标准的STD_LOGIC_1164、NUMERIC_BIT、NUMERIC_STD以及其他一些支持工业标准的程序包。其中最重要和最常用的是STD_LOGIC_1164程序包，大部分程序都是以此程序包中设定的标准为设计基础。</p>
+</li>
+<li><p>STD库：是VHDL的标准库，VHDL在编译过程中会自动调用这个库，所以使用时不需要用语句另外说明。</p>
+</li>
+<li><p>WORK库：是用户在进行VHDL设计时的现行工作库，用户的设计成果将自动保存在这个库中，是用户自己的仓库，同STD库一样，使用该库不需要任何说明。</p>
+</li>
+</ul>
+<h2 id="程序包"><a href="#程序包" class="headerlink" title="程序包"></a>程序包</h2><blockquote>
+<p>程序包是用VHDL语言编写的一段程序，可以供其他设计单元调用和共享，相当于公用的“工具箱”，各种数据类型、子程序等一旦放入了程序包，就成为共享的“工具”，类似于C语言的头文件，使用它可以减少代码的输入量，使程序结构清晰。在一个设计中，实体部分所定义的数据类型、常量和子程序可以在相应的结构体中使用，但在一个实体的声明部分和结构体部分中定义的数据类型、常量及子程序却不能被其他设计单元使用。因此，程序包的作用是可以使一组数据类型、常量和子程序能够被多个设计单元使用。<br> 程序包分为包头和包体两部分。包头（也称程序包说明）是对包中使用的数据类型、元件、函数和子程序进行定义，其形式与实体定义类似。包体规定了程序包的实际功能，存放函数和过程的程序体，而且还允许建立内部的子程序、内部变量和数据类型。包头、包体均以关键字PACKAGE开头。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--包头格式：</span></span><br><span class="line"><span class="keyword">PACKAGE</span> 程序包名 <span class="keyword">IS</span></span><br><span class="line">[包头说明语句]</span><br><span class="line"><span class="keyword">END</span> 程序包名;</span><br><span class="line"></span><br><span class="line"><span class="comment">--包体格式：</span></span><br><span class="line"><span class="keyword">PACKAGE</span> <span class="keyword">BODY</span> 程序包名 <span class="keyword">IS</span></span><br><span class="line">[包体说明语句]</span><br><span class="line"><span class="keyword">END</span> 程序包名;</span><br></pre></td></tr></table></figure>
+
+<p>调用方式：</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> 库名.程序包名.<span class="keyword">ALL</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h2><blockquote>
+<p>实现设计单元的端口说明。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENTITY</span> 实体名 <span class="keyword">IS</span></span><br><span class="line">    <span class="keyword">PORT</span>();		<span class="comment">--端口</span></span><br><span class="line">    <span class="keyword">GENERIC</span>();	<span class="comment">--类属表</span></span><br><span class="line"><span class="keyword">END</span> 实体名;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类属"><a href="#类属" class="headerlink" title="类属"></a>类属</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--格式</span></span><br><span class="line"><span class="keyword">GENERIC</span>(常数名：数据类型：设定值);</span><br></pre></td></tr></table></figure>
+
+<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PORT</span>(端口信号名：端口模式 数据类型;</span><br><span class="line">	端口信号名：端口模式 数据类型）;</span><br></pre></td></tr></table></figure>
+
+<p>端口模式</p>
+<ul>
+<li>IN		      输入</li>
+<li>OUT	      输出</li>
+<li>INOUT	  双向</li>
+<li>BUFFER   从实体输出</li>
+</ul>
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><blockquote>
+<p>结构体的任务是：定义结构体中的各项内部使用元素，如数据类型（TYPE）,常数（CONSTAND）,信号（SIGNAL）,元件（COMPONENT）,过程（POCEDURE）,变量（VARIABLE）和进程（PROCESS）等。通过VHDL语句描述实体所要求的具体行为和逻辑功能。描述各元件之间的连接。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARCHITECTURE</span> 结构体名 <span class="keyword">OF</span> 实体名 <span class="keyword">IS</span></span><br><span class="line">	定义语句法;	<span class="comment">--描述结构体内部“功能描述语句”中要用到的的内部信号、常数、数据类型、函数。（无时可省略）</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	功能描述语句法;	<span class="comment">--用并行语句形式描述设计单元功能，执行顺序与其书写顺序无关，在实际电路中所有并行语句的功能同时实现。</span></span><br><span class="line"><span class="keyword">END</span> 结构体名称;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><blockquote>
+<p>为实体指定所要配置的结构体</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CONFIGURATION</span> 配置名 <span class="keyword">OF</span> 实体名 <span class="keyword">IS</span></span><br><span class="line">	<span class="keyword">FOR</span> 被选结构体名</span><br><span class="line">	<span class="keyword">END</span> <span class="keyword">FOR</span>;</span><br><span class="line"><span class="keyword">END</span> 配置名;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><h2 id="标识符规则"><a href="#标识符规则" class="headerlink" title="标识符规则"></a>标识符规则</h2><ul>
+<li>应以英文字母开头</li>
+<li>允许包含图形符号如回车符,换行符,空格符</li>
+<li>不能使用VHDL中的关键字</li>
+<li>标识符的下标加括号表示</li>
+<li>VHDL的数据对象分为：常量，变量和信号</li>
+</ul>
+<h2 id="数据对象"><a href="#数据对象" class="headerlink" title="数据对象"></a>数据对象</h2><h3 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h3><blockquote>
+<p>为全局变量，在程序包说明、实体说明、结构体描述中使用，用于声明内部信号，而非外部信号（外部信号为IN、OUT、INOUT、BUFFER），其在元件之间起互联作用，可以赋值给外部信号。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义</span></span><br><span class="line"><span class="keyword">SIGNAL</span> 信号名:数据类型[:=初始值];</span><br><span class="line"></span><br><span class="line"><span class="comment">--赋值</span></span><br><span class="line">目标信号名 &lt;= 表达式</span><br></pre></td></tr></table></figure>
+
+<p>常在结构体中用赋值语句完成对信号赋初值的任务，因为综合器往往忽略信号声名时所赋的值。</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><blockquote>
+<p>只在给定的进程中用于声明局部值或用于子程序中，变量的赋值符号为“：&#x3D;”，和信号不同，信号是实际的，是内部的一个存储元件（SIGNAL）或者是外部输入（IN、OUT、INOUT、BUFFER），而变量是虚的，仅是为了书写方便而引入的一个名称，常用在实现某种算法的赋值语句当中。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义</span></span><br><span class="line"><span class="keyword">VARIABLE</span> 变量名:数据类型[:=初始值]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><blockquote>
+<p>在结构体描述、程序包说明、实体说明、过程说明、函数调用说明和进程说明中使用，在设计中描述某一规定类型的特定值不变，如利用它可设计不同模值的计数器，模值存于一常量中，对不同的设计，改变模值仅需改变此常量即可，就如上一章所说的参数化元件。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定义</span></span><br><span class="line"><span class="keyword">CONSTANT</span> 常数名：数据类型：=表达式;</span><br></pre></td></tr></table></figure>
+
+<p><strong>信号与变量的区别：若在一个进程中为一个信号多次赋值，则最后一次生效；变量赋值实时生效。</strong></p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><blockquote>
+<p>VHDL是一种强类型语言，对于每一个常数、变量、信号、函数及设定的各种参量的数据类型（DATA TYPES）都有严格要求，相同数据类型的变量才能互相传递和作用，标准定义的数据类型都在VHDL标准程序表STD中定义，实际使用中，不需要用USE语句以显式调用。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>范围和说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>INTEGER</td>
+<td>-2147483547～2147483546</td>
+</tr>
+<tr>
+<td>REAL</td>
+<td>-1.0E38～ 1.0E38</td>
+</tr>
+<tr>
+<td>BIT</td>
+<td>取值为0或1</td>
+</tr>
+<tr>
+<td>BIT_VECTOR</td>
+<td>用双引号括起来的一组位数据，如“10011”，通常用来表示数据总线</td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>TRUE &#x2F; FALSE</td>
+</tr>
+<tr>
+<td>CHARACTER</td>
+<td>ASCII码支持的128个字符，使用单引号包裹</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td>“like this”</td>
+</tr>
+<tr>
+<td>STD_LOGIC</td>
+<td>枚举数据类型</td>
+</tr>
+<tr>
+<td>STD_LOGIC_VECTOR</td>
+<td>用双引号括起来的一组STD_LOGIC数据，如“101011”，通常用来表示数据总线</td>
+</tr>
+</tbody></table>
+<p>枚举数据类型:</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>‘U’</td>
+<td>初始值</td>
+</tr>
+<tr>
+<td>‘X’</td>
+<td>不定</td>
+</tr>
+<tr>
+<td>‘0’</td>
+<td>0</td>
+</tr>
+<tr>
+<td>‘1’</td>
+<td>1</td>
+</tr>
+<tr>
+<td>‘Z’</td>
+<td>高阻</td>
+</tr>
+<tr>
+<td>‘W’</td>
+<td>弱信号不定</td>
+</tr>
+<tr>
+<td>‘L’</td>
+<td>弱信号0</td>
+</tr>
+<tr>
+<td>‘H’</td>
+<td>弱信号1</td>
+</tr>
+<tr>
+<td>‘-‘</td>
+<td>不可能情况</td>
+</tr>
+</tbody></table>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><table>
+<thead>
+<tr>
+<th><strong>操作符</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>and</td>
+<td>与</td>
+</tr>
+<tr>
+<td>or</td>
+<td>或</td>
+</tr>
+<tr>
+<td>nand</td>
+<td>与非</td>
+</tr>
+<tr>
+<td>nor</td>
+<td>或非</td>
+</tr>
+<tr>
+<td>xor</td>
+<td>异或</td>
+</tr>
+<tr>
+<td>xnor</td>
+<td>同或</td>
+</tr>
+<tr>
+<td>not</td>
+<td>逻辑非</td>
+</tr>
+</tbody></table>
+<h3 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h3><table>
+<thead>
+<tr>
+<th><strong>操作符</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘</td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>除</td>
+</tr>
+<tr>
+<td>**</td>
+<td>乘方</td>
+</tr>
+<tr>
+<td>mod</td>
+<td>求模</td>
+</tr>
+<tr>
+<td>rem</td>
+<td>求余</td>
+</tr>
+<tr>
+<td>abs</td>
+<td>绝对值</td>
+</tr>
+</tbody></table>
+<h3 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h3><table>
+<thead>
+<tr>
+<th><strong>操作符</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&#x2F;&#x3D;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+</tr>
+</tbody></table>
+<h3 id="连接运算符"><a href="#连接运算符" class="headerlink" title="连接运算符"></a>连接运算符</h3><p>&amp;，将多个对象或矢量连接成维数更大的矢量</p>
+<h2 id="顺序语句"><a href="#顺序语句" class="headerlink" title="顺序语句"></a>顺序语句</h2><h3 id="赋值语句"><a href="#赋值语句" class="headerlink" title="赋值语句"></a>赋值语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--变量赋值</span></span><br><span class="line">变量名:=表达式;</span><br><span class="line"></span><br><span class="line"><span class="comment">--信号赋值</span></span><br><span class="line">信号名&lt;=表达式;</span><br></pre></td></tr></table></figure>
+
+<h3 id="WAIT语句"><a href="#WAIT语句" class="headerlink" title="WAIT语句"></a>WAIT语句</h3><blockquote>
+<p>WAIT语句属于敏感信号激励信号，一个进程语句含有敏感信号时，进程中不能出现WAIT等待语句;当进程语句不含有敏感信号时，进程语句必须含有其他形态的敏感信号激励。</p>
+</blockquote>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WAIT</span> <span class="comment">--无限等待;</span></span><br><span class="line"><span class="keyword">WAIT</span> <span class="keyword">ON</span> （敏感信号<span class="number">1</span>，敏感信号<span class="number">2</span>，敏感信号N） <span class="comment">--敏感信号变化，表中的信号产生变化时才往下运行;</span></span><br><span class="line"><span class="keyword">WAIT</span> <span class="keyword">UNTIL</span> 布尔表达式 <span class="comment">--为TRUE时，进程启动，为FARLSE是等待</span></span><br><span class="line"><span class="keyword">WAIT</span> <span class="keyword">FOR</span> 时间表达式 <span class="comment">--到时进程才会启动</span></span><br><span class="line"><span class="keyword">WAIT</span> <span class="keyword">UNTIL</span> 布尔表达式 <span class="keyword">ON</span> （敏感信号<span class="number">1</span>，敏感信号<span class="number">2</span>，敏感信号N） <span class="keyword">FOR</span> 时间表达式 </span><br><span class="line">    <span class="comment">--多条件等待语句，注意在多条件等待语句的表达式中，至少应有一个信号量，因为处于等待进程中的变量是不可改变的。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="IF语句"><a href="#IF语句" class="headerlink" title="IF语句"></a>IF语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 方式1</span></span><br><span class="line"><span class="keyword">IF</span> 条件表达式 <span class="keyword">THEN</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">-- 方式2</span></span><br><span class="line"><span class="keyword">IF</span> 条件表达式 <span class="keyword">THEN</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">ELSE</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 方式3</span></span><br><span class="line"><span class="keyword">IF</span> 条件表达式 <span class="keyword">THEN</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">ELSIF</span>条件表达式 <span class="keyword">THEN</span></span><br><span class="line">	顺序语句;</span><br><span class="line">	……</span><br><span class="line"><span class="keyword">ELSE</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">IF</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CASE语句"><a href="#CASE语句" class="headerlink" title="CASE语句"></a>CASE语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CASE</span> 条件表达式 <span class="keyword">IS</span></span><br><span class="line">	<span class="keyword">WHEN</span> 条件取值 =&gt; 顺序处理语句;</span><br><span class="line">	<span class="keyword">WHEN</span> 值<span class="number">1</span>|值<span class="number">2</span>|值<span class="number">3</span> =&gt; 顺序处理语句;</span><br><span class="line">	<span class="keyword">WHEN</span> 起始值 <span class="keyword">TO</span> 结束值 =&gt; 顺序处理语句;</span><br><span class="line">	<span class="keyword">WHEN</span> <span class="keyword">OTHERS</span> =&gt; 顺序处理语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">CASE</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="LOOP循环语句"><a href="#LOOP循环语句" class="headerlink" title="LOOP循环语句"></a>LOOP循环语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- LOOP模式</span></span><br><span class="line">[标号:]<span class="keyword">LOOP</span></span><br><span class="line">	顺序语句;	<span class="comment">-- 需要引入退出语句</span></span><br><span class="line"><span class="keyword">END</span> <span class="keyword">LOOP</span> [标号];</span><br><span class="line"></span><br><span class="line"><span class="comment">-- FOR模式</span></span><br><span class="line">[标号:] <span class="keyword">FOR</span> 循环变量 <span class="keyword">IN</span> 循环次数范围 <span class="keyword">LOOP</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">LOOP</span> [标号] ;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- WHILE模式</span></span><br><span class="line">[标号:] <span class="keyword">WHILE</span> 条件表达式 <span class="keyword">LOOP</span></span><br><span class="line">      顺序语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">LOOP</span> [标号];</span><br></pre></td></tr></table></figure>
+
+<h3 id="NEXT语句"><a href="#NEXT语句" class="headerlink" title="NEXT语句"></a>NEXT语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">NEXT</span> [<span class="keyword">WHEN</span> 条件];	<span class="comment">-- 满足条件时终止</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="EXIT语句"><a href="#EXIT语句" class="headerlink" title="EXIT语句"></a>EXIT语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXIT</span> [标号][<span class="keyword">WHEN</span> 条件];	<span class="comment">-- 满足条件时退出循环</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FUNCTION</span> &lt;函数名&gt;(参数表) <span class="keyword">RETURN</span> &lt;数据类型&gt; <span class="keyword">IS</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	顺序语句;</span><br><span class="line">	<span class="keyword">RETURN</span> [返回变量名];</span><br><span class="line"><span class="keyword">END</span> &lt;函数名&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 调用方法</span></span><br><span class="line">函数名(实际参数表);</span><br></pre></td></tr></table></figure>
+
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PROCEDURE</span> &lt;过程名&gt;(参数表) <span class="keyword">IS</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">END</span> &lt;过程名&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 调用方法</span></span><br><span class="line">过程名(实际参数表);</span><br></pre></td></tr></table></figure>
+
+<h2 id="并行语句"><a href="#并行语句" class="headerlink" title="并行语句"></a>并行语句</h2><blockquote>
+<p>当满足条件时，多个语句同时被执行，与书写顺序无关。</p>
+</blockquote>
+<h3 id="BLOCK语句"><a href="#BLOCK语句" class="headerlink" title="BLOCK语句"></a>BLOCK语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[块标号:]<span class="keyword">BLOCK</span>[(布尔表达式)]</span><br><span class="line">	[块说明语句;]</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	并行语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">BLOCK</span>[块标号];</span><br></pre></td></tr></table></figure>
+
+<h3 id="进程语句"><a href="#进程语句" class="headerlink" title="进程语句"></a>进程语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[进程名:] <span class="keyword">PROCESS</span> (敏感信号表)</span><br><span class="line">	[说明语句;]</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	顺序语句;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">PROCESS</span> [进程名];</span><br></pre></td></tr></table></figure>
+
+<h3 id="并行信号赋值语句"><a href="#并行信号赋值语句" class="headerlink" title="并行信号赋值语句"></a>并行信号赋值语句</h3><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 简单</span></span><br><span class="line">目标信号&lt;=表达式;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 条件</span></span><br><span class="line">目标信号 &lt;= 表达式<span class="number">1</span> <span class="keyword">when</span> 赋值条件<span class="number">1</span> <span class="keyword">else</span></span><br><span class="line">	表达式<span class="number">2</span> <span class="keyword">when</span> 赋值条件<span class="number">1</span> <span class="keyword">else</span></span><br><span class="line">	……</span><br><span class="line">	表达式n;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 选择</span></span><br><span class="line"><span class="keyword">with</span> 选择表达式 <span class="keyword">select</span></span><br><span class="line">目标信号 &lt;= 表达式<span class="number">1</span> <span class="keyword">when</span> 选择值<span class="number">1</span>,</span><br><span class="line">	表达式<span class="number">2</span> <span class="keyword">when</span> 选择值<span class="number">2</span>, </span><br><span class="line">	……</span><br><span class="line">	表达式n <span class="keyword">when</span> 选择值n; </span><br></pre></td></tr></table></figure>
+
+<h3 id="并行过程调用语句"><a href="#并行过程调用语句" class="headerlink" title="并行过程调用语句"></a>并行过程调用语句</h3><blockquote>
+<p>并行过程调用语句与顺序过程调用语句形式基本相同，只是出现的位置不同。</p>
+</blockquote>
+<h2 id="元件例化语句"><a href="#元件例化语句" class="headerlink" title="元件例化语句"></a>元件例化语句</h2><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COMPONENT</span> 元件名</span><br><span class="line">	[<span class="keyword">GENERIC</span> &lt;参数说明&gt;;]</span><br><span class="line">	<span class="keyword">PORT</span> &lt;端口说明&gt;;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">COMPONENT</span>;</span><br></pre></td></tr></table></figure>
+
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210926122447.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ReactNative安卓app逆向获取passwd加密方式初探</div></div></a></div><div class="next-post pull-right"><a href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210826120000.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">关于maven仓库在gradle本地复用的误区</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210926122447.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-26</div><div class="title">ReactNative安卓app逆向获取passwd加密方式初探</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DazeCake</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/DazeCake"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DazeCake" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dazecake@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8D%95%E5%85%83"><span class="toc-number">1.</span> <span class="toc-text">基本设计单元</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%93"><span class="toc-number">2.1.</span> <span class="toc-text">库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">程序包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93"><span class="toc-number">2.3.</span> <span class="toc-text">实体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%B1%9E"><span class="toc-number">2.3.1.</span> <span class="toc-text">类属</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.3.2.</span> <span class="toc-text">端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">2.4.</span> <span class="toc-text">结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.5.</span> <span class="toc-text">配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E8%A7%84%E5%88%99"><span class="toc-number">3.1.</span> <span class="toc-text">标识符规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.2.</span> <span class="toc-text">数据对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.2.1.</span> <span class="toc-text">信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">3.2.2.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">3.2.3.</span> <span class="toc-text">常量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">3.4.</span> <span class="toc-text">运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">3.4.1.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">3.4.2.</span> <span class="toc-text">算数运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">3.4.3.</span> <span class="toc-text">关系运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">3.4.4.</span> <span class="toc-text">连接运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.</span> <span class="toc-text">顺序语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.1.</span> <span class="toc-text">赋值语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WAIT%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.2.</span> <span class="toc-text">WAIT语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IF%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.3.</span> <span class="toc-text">IF语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CASE%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.4.</span> <span class="toc-text">CASE语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LOOP%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.5.</span> <span class="toc-text">LOOP循环语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NEXT%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.6.</span> <span class="toc-text">NEXT语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXIT%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.5.7.</span> <span class="toc-text">EXIT语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">3.5.8.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-number">3.5.9.</span> <span class="toc-text">过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.6.</span> <span class="toc-text">并行语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BLOCK%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.6.1.</span> <span class="toc-text">BLOCK语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.6.2.</span> <span class="toc-text">进程语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E4%BF%A1%E5%8F%B7%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.6.3.</span> <span class="toc-text">并行信号赋值语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.6.4.</span> <span class="toc-text">并行过程调用语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E4%BB%B6%E4%BE%8B%E5%8C%96%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.7.</span> <span class="toc-text">元件例化语句</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用VSCode和sdcc进行现代化单片机开发"/></a><div class="content"><a class="title" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发">使用VSCode和sdcc进行现代化单片机开发</a><time datetime="2022-03-28T01:27:29.000Z" title="发表于 2022-03-28 09:27:29">2022-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105125328.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Clion进行LiteLoader插件开发"/></a><div class="content"><a class="title" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发">使用Clion进行LiteLoader插件开发</a><time datetime="2022-02-20T09:17:49.000Z" title="发表于 2022-02-20 17:17:49">2022-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210926122447.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactNative安卓app逆向获取passwd加密方式初探"/></a><div class="content"><a class="title" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探">ReactNative安卓app逆向获取passwd加密方式初探</a><time datetime="2021-09-25T16:00:03.000Z" title="发表于 2021-09-26 00:00:03">2021-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VHDL学习笔记"/></a><div class="content"><a class="title" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记">VHDL学习笔记</a><time datetime="2021-09-07T05:09:40.000Z" title="发表于 2021-09-07 13:09:40">2021-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210826120000.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于maven仓库在gradle本地复用的误区"/></a><div class="content"><a class="title" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区">关于maven仓库在gradle本地复用的误区</a><time datetime="2021-08-26T03:02:02.000Z" title="发表于 2021-08-26 11:02:02">2021-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By DazeCake</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f0721fa4ce0b27824154',
+      clientSecret: 'f6d3dd9583ac3a55862057c28c1d7aca59466fdf',
+      repo: 'DazeCake.github.io',
+      owner: 'DazeCake',
+      admin: ['DazeCake'],
+      id: '727911bf69597507264d3632af0728e7',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

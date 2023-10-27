@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>有关栈数据处理和布尔代数的探索 | DazeCake的工坊</title><meta name="author" content="DazeCake,dazecake@mamoe.net"><meta name="copyright" content="DazeCake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="【注意】 本文档存在大量的不规范，不标准言论以及大量臆想，请勿作为学术参考  有关栈数据处理和布尔代数的探索这段时间的数据结构学习，使我对栈这一数据结构类型产生了兴趣。 从栈的本质出发，他是一个先进后出的特殊的数据结构类型。这个先进后出的思想使得很多操作变得极为便利且可行，就如由栈实现的简单计算器的计算优先级逻辑。 先进后出的栈先进后出，简单的理解就是先进栈的数据后出栈  仔细观察这张图，我们可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有关栈数据处理和布尔代数的探索">
+<meta property="og:url" content="http://example.com/2021/03/28/%E6%9C%89%E5%85%B3%E6%A0%88%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8C%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0%E7%9A%84%E6%8E%A2%E7%B4%A2/index.html">
+<meta property="og:site_name" content="DazeCake的工坊">
+<meta property="og:description" content="【注意】 本文档存在大量的不规范，不标准言论以及大量臆想，请勿作为学术参考  有关栈数据处理和布尔代数的探索这段时间的数据结构学习，使我对栈这一数据结构类型产生了兴趣。 从栈的本质出发，他是一个先进后出的特殊的数据结构类型。这个先进后出的思想使得很多操作变得极为便利且可行，就如由栈实现的简单计算器的计算优先级逻辑。 先进后出的栈先进后出，简单的理解就是先进栈的数据后出栈  仔细观察这张图，我们可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255312.png">
+<meta property="article:published_time" content="2021-03-28T14:40:47.000Z">
+<meta property="article:modified_time" content="2022-11-23T12:13:00.709Z">
+<meta property="article:author" content="DazeCake">
+<meta property="article:tag" content="随想">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255312.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/03/28/%E6%9C%89%E5%85%B3%E6%A0%88%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8C%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0%E7%9A%84%E6%8E%A2%E7%B4%A2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '有关栈数据处理和布尔代数的探索',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-23 20:13:00'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255312.png')"><nav id="nav"><span id="blog-info"><a href="/" title="DazeCake的工坊"><span class="site-name">DazeCake的工坊</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">有关栈数据处理和布尔代数的探索</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-28T14:40:47.000Z" title="发表于 2021-03-28 22:40:47">2021-03-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-23T12:13:00.709Z" title="更新于 2022-11-23 20:13:00">2022-11-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="有关栈数据处理和布尔代数的探索"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p><strong>【注意】 本文档存在大量的<em>不规范</em>，<em>不标准</em>言论以及大量臆想，请勿作为学术参考</strong></p>
+</blockquote>
+<h1 id="有关栈数据处理和布尔代数的探索"><a href="#有关栈数据处理和布尔代数的探索" class="headerlink" title="有关栈数据处理和布尔代数的探索"></a>有关栈数据处理和布尔代数的探索</h1><p>这段时间的数据结构学习，使我对栈这一数据结构类型产生了兴趣。</p>
+<p>从栈的本质出发，他是一个<strong>先进后出</strong>的特殊的数据结构类型。这个先进后出的思想使得很多操作变得极为便利且可行，就如由栈实现的简单计算器的计算优先级逻辑。</p>
+<h2 id="先进后出的栈"><a href="#先进后出的栈" class="headerlink" title="先进后出的栈"></a>先进后出的栈</h2><p>先进后出，简单的理解就是先进栈的数据后出栈</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255312.png"></p>
+<p>仔细观察这张图，我们可以发现什么呢？</p>
+<p>没错，他对这串数字进行了逆序输出，更为准确的说，是</p>
+<blockquote>
+<p>对于一个数据块，经理了一次完整的进栈出栈后，栈对其进行了逆序的操作</p>
+</blockquote>
+<p>数据块是我自己的叫法，他应该被解释为，<strong>一次性依次压入栈中的一整个线性表</strong>，对于一个已经确定的数据块，我们<strong>不对其进行进一步的分割</strong>，同时也应当注意，<strong>只有一个元素线性表也被称为数据块</strong>，不过因为数据块中只有一个元素，所以其逆序输出是其本身。数据块应该作为待<strong>入栈最小单元</strong>来对待。</p>
+<p>OK，那么我们就得到了定理一（请原谅我这么称呼）</p>
+<h2 id="逻辑的混乱"><a href="#逻辑的混乱" class="headerlink" title="逻辑的混乱"></a>逻辑的混乱</h2><p>在数据结构作业中，我遇到了这样一个问题</p>
+<blockquote>
+<p>请列出线性表<code>abcd</code>经过栈处理以后所有的可能序列</p>
+</blockquote>
+<p>这道题本身并不难，套用课本给出的公式<br>$$<br>\LARGE C_{2n}^{n}-C_{2n}^{n-1}<br>$$<br>可得<br>$$<br>\LARGE C_{2<em>4}^{4}-C_{2</em>4}^{4-1}&#x3D;14<br>$$<br>共计14种情况</p>
+<p>可当我准备按顺序依次把他们写在我的作业本上时，我发现内部的逻辑已经复杂到难以以一种排列组合的形式优雅的快速得出了，我们要处理的不只有数据块进栈后立即出栈的情况，还有进栈后暂不处理，让后续的数据块进栈再出栈的情况，甚至对后续的数据块置之不理，处理更后面入栈的数据块……</p>
+<p>这简直没完没了了！</p>
+<p>要解决这种情况，我们需要再次强化之前对进栈数据的定义——数据块。以数据块作为最小进栈单元，我们可以轻松的划分出4种情况</p>
+<ul>
+<li>单数据块进栈</li>
+<li>双数据块进栈</li>
+<li>3数据块进栈</li>
+<li>4数据块进栈</li>
+</ul>
+<p>根据栈结构先进后出的逆序原理，我们可以得到以下结果</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数据</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单数据块</td>
+<td><code>abcd</code></td>
+<td><code>dcba</code></td>
+</tr>
+<tr>
+<td>双数据块</td>
+<td><code>abd</code> <code>d</code> \ <code>a</code> <code>bcd</code> \ <code>ab</code> <code>cd</code></td>
+<td><code>cbad</code>\ <code>ab</code> <code>cd</code>\ <code>badc</code></td>
+</tr>
+<tr>
+<td>3数据块</td>
+<td><code>ab</code> <code>c</code> <code>d</code> \ <code>a</code> <code>bc</code> <code>d</code> \ <code>a</code> <code>b</code> <code>cd</code></td>
+<td><code>a</code> <code>bc</code> <code>d</code> \ <code>bacd</code> \ <code>abdc</code></td>
+</tr>
+<tr>
+<td>4数据块</td>
+<td><code>a</code> <code>b</code> <code>c</code> <code>d</code></td>
+<td><code>dcba</code></td>
+</tr>
+</tbody></table>
+<p>怪事，数来数去也只有8种结果，剩下的6种结果去哪里了呢？这正是我们接下去所要讨论的。</p>
+<h2 id="于迷雾中出现的布尔代数"><a href="#于迷雾中出现的布尔代数" class="headerlink" title="于迷雾中出现的布尔代数"></a>于迷雾中出现的布尔代数</h2><p>正当我冥思苦想之际，一个字符跳入我的脑海中</p>
+<p><font style="text-decoration: overline;">  </font></p>
+<p>非号，来源于布尔代数的一种运算符，其含义是取反运算，例如在C语言中，<font style="text-decoration: overline;">0</font> &#x3D;&#x3D; 1，这是一种逻辑运算</p>
+<p>视线回到数据结构中的栈，根据定理一，栈对数据块的操作有单一结果，即逆序输出，输入和输出都只有一个，这和布尔代数的取非运算简直一模一样！而且对于不再进行分割而作为最小入栈单元的数据块，我们可以很轻松的得出其结果。</p>
+<p>这太棒了！那么不妨将这一步逻辑操作抽象出来，定义为<br>$$<br>\LARGE<br>\overline{ab} &#x3D; ba<br>$$<br>而作为最小数据单元的数据块，我们统一加上非号以方便区分</p>
+<ul>
+<li><h1 id="单数据块-LARGE-overline-abcd"><a href="#单数据块-LARGE-overline-abcd" class="headerlink" title="单数据块$$\LARGE\overline{abcd}"></a>单数据块<br>$$<br>\LARGE<br>\overline{abcd}</h1><p>dcba<br>$$</p>
+</li>
+<li><h1 id="双数据块-LARGE-overline-a-overline-bcd"><a href="#双数据块-LARGE-overline-a-overline-bcd" class="headerlink" title="双数据块$$\LARGE\overline{a},\overline{bcd}"></a>双数据块<br>$$<br>\LARGE<br>\overline{a}<br>,<br>\overline{bcd}</h1><p>adcb<br>$$</p>
+</li>
+<li><h1 id="3数据块-LARGE-overline-a-overline-bc-overline-d"><a href="#3数据块-LARGE-overline-a-overline-bc-overline-d" class="headerlink" title="3数据块$$\LARGE\overline{a},\overline{bc},\overline{d}"></a>3数据块<br>$$<br>\LARGE<br>\overline{a}<br>,<br>\overline{bc}<br>,<br>\overline{d}</h1><p>acbd<br>$$</p>
+</li>
+<li><h1 id="4数据块-LARGE-overline-a-overline-b-overline-c-overline-d"><a href="#4数据块-LARGE-overline-a-overline-b-overline-c-overline-d" class="headerlink" title="4数据块$$\LARGE\overline{a},\overline{b},\overline{c},\overline{d},"></a>4数据块<br>$$<br>\LARGE<br>\overline{a}<br>,<br>\overline{b}<br>,<br>\overline{c}<br>,<br>\overline{d}<br>,</h1><p>abcd<br>$$<br>如此一来，进栈出栈的数据运算被我们抽象为了逻辑运算，栈结构的数据操作，奇迹般的和布尔代数联系到了一起！实际上这一步抽象是对栈结构的<strong>二元性</strong>的抽象应用。这让我不禁回想起了某个开发者朋友和我说过的一句话</p>
+</li>
+</ul>
+<blockquote>
+<p>计算机科学的尽头就是数学</p>
+</blockquote>
+<p>好，现在来冷静一下激动的心情，回顾一下，在例题中的计算我犯了怎么样的一个错误呢？很简单，在双数据块和单数据块的结构中，我忽视了存在3个元素的数据块进行进一步“分割”的可能。例如<br>$$<br>\LARGE\overline{\overline{ab}c}\overline{d}<br>$$<br>等一下，有人可能会有疑问，这不是和你之前的数据块的定义相<strong>违背</strong>了吗</p>
+<p>实际上数据块的定义并没有出现漏洞，这里的“分割”并没有真的把数据块切分开来，更确切的说，是一种嵌套的关系，我称其为&#96;数据块的嵌套“，那么以此可以完善对数据块的定义</p>
+<blockquote>
+<p>数据块是<strong>一次性依次压入栈中的一整个线性表</strong>的统称，是一次性入栈的<strong>最小单元</strong>，数据块不可分，但是存在<strong>3</strong>个以上元素的数据块可以进行<strong>嵌套</strong></p>
+</blockquote>
+<p>有了这个完善的数据块定义，我们再来进一步探究布尔代数和栈结构的联系</p>
+<h2 id="不同寻常的逻辑门"><a href="#不同寻常的逻辑门" class="headerlink" title="不同寻常的逻辑门"></a>不同寻常的逻辑门</h2><p>提到具有二元性的问题，基本的逻辑运算是绕不开的，那么逻辑运算又与栈有什么关联呢？我们再来看一看这个表达式<br>$$<br>\LARGE\overline{a},\overline{b} &#x3D; ab<br>$$<br>我们也可以表达为<br>$$<br>\LARGE\overline{a}\wedge\overline{b} &#x3D; ab<br>$$<br>其中，逻辑与表达为顺序连接，而或逻辑可以表示为与逻辑的对立，那么不妨令<br>$$<br>\LARGE\overline{a}\vee\overline{b} &#x3D; ba<br>$$<br>再次归纳一下</p>
+<blockquote>
+<p>$\wedge$ 连接的两个数据块顺序输出，$\vee$ 连接的两个数据块逆序输出</p>
+</blockquote>
+<p>那么由此我们可以得出<br>$$<br>\LARGE\overline{\overline{ab}c}\overline{d}&#x3D;\overline{\overline{a\wedge b}\wedge c}\wedge \overline{d}<br>$$<br>这一切都显得那么的合理，那么赶紧来看看这个式子怎么求解吧</p>
+<h2 id="神奇的德摩根定律"><a href="#神奇的德摩根定律" class="headerlink" title="神奇的德摩根定律"></a>神奇的德摩根定律</h2><p>一路探索下来，栈结构的特殊性质在某些方面简直和布尔代数一模一样，我们也总结出来了一套代数计算的工具，而布尔代数有一个很著名的定律，德摩根定律，他可以被表示为<br>$$<br>\LARGE\overline{a\wedge b}&#x3D;\LARGE\overline{a}\vee\overline{b}<br>$$<br>那么它可以用于我们前面所总结出来的代数计算工具上吗？</p>
+<p>答案是肯定的。<br>$$<br>\LARGE\overline{\overline{ab}c}\overline{d}&#x3D;\overline{\overline{a\wedge b}\wedge c}\wedge \overline{d}&#x3D;\overline{(a\vee b)\wedge c}\wedge\overline{d}&#x3D;(a\wedge b)\vee c\wedge d&#x3D;cabd<br>$$<br>至此，我们终于拿到了最后一块拼图，并成功得出了嵌套数据块情况下的结果，而这不正是我们苦苦追寻已久的8种结果之外的答案吗？使用德摩根定律我们可以通过布尔代数的形式计算出栈的所有可能情况，在熟练的情况下，你甚至可以直接得出答案<br>$$<br>\LARGE\overline{\overline{ab},\overline{cd}}&#x3D;cdab<br>$$<br>例题的元素只有4个，而这种计算方式同样适用于元素更多，嵌套更复杂的场景，并且能抛去多余的逻辑思考用简单直白的代数计算替代，这着实使人激动不已。</p>
+<hr>
+<p>综上所述，丢失的6种情况应该是</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数据</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>双数据块</td>
+<td>$\large\overline{\overline{ab}c}\overline{d}\quad\overline{a\overline{bc}},\overline{d}\quad\overline{a},\overline{\overline{bc}d}\quad\overline{a},\overline{b\overline{cd}}$</td>
+<td>$\large cabd\quad bcad\quad adbc\quad acdb$</td>
+</tr>
+<tr>
+<td>3数据块</td>
+<td>$\large\overline{\overline{ab},\overline{cd}}\quad\overline{a\overline{bc}d}$</td>
+<td>$\large cdab\quad dbca$</td>
+</tr>
+</tbody></table>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>起初并没有想到这么多，在中规中矩的画了十几个栈图却只得出了13种结果的情况下，我几乎抓狂，伴随着灵光一闪，得出了这样一种计算的方法，因为原生Hexo-math对LaTeX的支持差到令人发指，导致花了近5个小时才整理出了这篇笔记，就我个人而言还是相当满意的。如果有什么想法，欢迎在评论区交流。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9A%8F%E6%83%B3/">随想</a></div><div class="post_share"><div class="social-share" data-image="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255312.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210826120000.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">关于maven仓库在gradle本地复用的误区</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/22/%E7%AE%80%E8%BF%B0%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="简述类与对象的基本使用"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210322194528.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">简述类与对象的基本使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210826120000.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-26</div><div class="title">关于maven仓库在gradle本地复用的误区</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DazeCake</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/DazeCake"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DazeCake" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dazecake@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%89%E5%85%B3%E6%A0%88%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8C%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0%E7%9A%84%E6%8E%A2%E7%B4%A2"><span class="toc-number">1.</span> <span class="toc-text">有关栈数据处理和布尔代数的探索</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E8%BF%9B%E5%90%8E%E5%87%BA%E7%9A%84%E6%A0%88"><span class="toc-number">1.1.</span> <span class="toc-text">先进后出的栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%9A%84%E6%B7%B7%E4%B9%B1"><span class="toc-number">1.2.</span> <span class="toc-text">逻辑的混乱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8E%E8%BF%B7%E9%9B%BE%E4%B8%AD%E5%87%BA%E7%8E%B0%E7%9A%84%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">于迷雾中出现的布尔代数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E6%95%B0%E6%8D%AE%E5%9D%97-LARGE-overline-abcd"><span class="toc-number">2.</span> <span class="toc-text">单数据块$$\LARGE\overline{abcd}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E6%95%B0%E6%8D%AE%E5%9D%97-LARGE-overline-a-overline-bcd"><span class="toc-number">3.</span> <span class="toc-text">双数据块$$\LARGE\overline{a},\overline{bcd}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E6%95%B0%E6%8D%AE%E5%9D%97-LARGE-overline-a-overline-bc-overline-d"><span class="toc-number">4.</span> <span class="toc-text">3数据块$$\LARGE\overline{a},\overline{bc},\overline{d}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E6%95%B0%E6%8D%AE%E5%9D%97-LARGE-overline-a-overline-b-overline-c-overline-d"><span class="toc-number">5.</span> <span class="toc-text">4数据块$$\LARGE\overline{a},\overline{b},\overline{c},\overline{d},</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%AF%BB%E5%B8%B8%E7%9A%84%E9%80%BB%E8%BE%91%E9%97%A8"><span class="toc-number">5.1.</span> <span class="toc-text">不同寻常的逻辑门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%9E%E5%A5%87%E7%9A%84%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B"><span class="toc-number">5.2.</span> <span class="toc-text">神奇的德摩根定律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">5.3.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用VSCode和sdcc进行现代化单片机开发"/></a><div class="content"><a class="title" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发">使用VSCode和sdcc进行现代化单片机开发</a><time datetime="2022-03-28T01:27:29.000Z" title="发表于 2022-03-28 09:27:29">2022-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105125328.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Clion进行LiteLoader插件开发"/></a><div class="content"><a class="title" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发">使用Clion进行LiteLoader插件开发</a><time datetime="2022-02-20T09:17:49.000Z" title="发表于 2022-02-20 17:17:49">2022-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210926122447.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactNative安卓app逆向获取passwd加密方式初探"/></a><div class="content"><a class="title" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探">ReactNative安卓app逆向获取passwd加密方式初探</a><time datetime="2021-09-25T16:00:03.000Z" title="发表于 2021-09-26 00:00:03">2021-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VHDL学习笔记"/></a><div class="content"><a class="title" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记">VHDL学习笔记</a><time datetime="2021-09-07T05:09:40.000Z" title="发表于 2021-09-07 13:09:40">2021-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210826120000.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于maven仓库在gradle本地复用的误区"/></a><div class="content"><a class="title" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区">关于maven仓库在gradle本地复用的误区</a><time datetime="2021-08-26T03:02:02.000Z" title="发表于 2021-08-26 11:02:02">2021-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By DazeCake</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f0721fa4ce0b27824154',
+      clientSecret: 'f6d3dd9583ac3a55862057c28c1d7aca59466fdf',
+      repo: 'DazeCake.github.io',
+      owner: 'DazeCake',
+      admin: ['DazeCake'],
+      id: '69a5f2a193ac1a6aeadc4d4d3d96fde3',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

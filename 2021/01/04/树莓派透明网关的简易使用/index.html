@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>树莓派透明网关的简易使用 | DazeCake的工坊</title><meta name="author" content="DazeCake,dazecake@mamoe.net"><meta name="copyright" content="DazeCake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="树莓派透明网关搭建流程在开始之前由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程 我们需要的材料有  树莓派一个 网线 光猫 路由器  树莓派部分固件烧写这里我们使用了OpenWrt-Rpi作为树莓派固件 该固件预置相当多且实用的程序，其中就包含了我们所需要的PassWall的有关程序应用 前往Action获取最新的固件，解压出文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派透明网关的简易使用">
+<meta property="og:url" content="http://example.com/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="DazeCake的工坊">
+<meta property="og:description" content="树莓派透明网关搭建流程在开始之前由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程 我们需要的材料有  树莓派一个 网线 光猫 路由器  树莓派部分固件烧写这里我们使用了OpenWrt-Rpi作为树莓派固件 该固件预置相当多且实用的程序，其中就包含了我们所需要的PassWall的有关程序应用 前往Action获取最新的固件，解压出文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105105933.png">
+<meta property="article:published_time" content="2021-01-04T09:21:16.000Z">
+<meta property="article:modified_time" content="2022-11-20T14:55:17.932Z">
+<meta property="article:author" content="DazeCake">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="树莓派">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105105933.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E7%9A%84%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '树莓派透明网关的简易使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-20 22:55:17'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105105933.png')"><nav id="nav"><span id="blog-info"><a href="/" title="DazeCake的工坊"><span class="site-name">DazeCake的工坊</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">树莓派透明网关的简易使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-04T09:21:16.000Z" title="发表于 2021-01-04 17:21:16">2021-01-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-20T14:55:17.932Z" title="更新于 2022-11-20 22:55:17">2022-11-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="树莓派透明网关的简易使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="树莓派透明网关搭建流程"><a href="#树莓派透明网关搭建流程" class="headerlink" title="树莓派透明网关搭建流程"></a>树莓派透明网关搭建流程</h1><h2 id="在开始之前"><a href="#在开始之前" class="headerlink" title="在开始之前"></a>在开始之前</h2><p>由于国内政策的原因，我们访问因特网是相当麻烦的，手上有一个闲置的树莓派，刚好在家，就记录一下整个透明网关的搭建流程</p>
+<p>我们需要的材料有</p>
+<ul>
+<li>树莓派一个</li>
+<li>网线</li>
+<li>光猫</li>
+<li>路由器</li>
+</ul>
+<h2 id="树莓派部分"><a href="#树莓派部分" class="headerlink" title="树莓派部分"></a>树莓派部分</h2><h3 id="固件烧写"><a href="#固件烧写" class="headerlink" title="固件烧写"></a>固件烧写</h3><p>这里我们使用了<a target="_blank" rel="noopener" href="https://github.com/SuLingGG/OpenWrt-Rpi">OpenWrt-Rpi</a>作为树莓派固件</p>
+<p>该固件预置相当多且实用的程序，其中就包含了我们所需要的<strong>PassWall</strong>的有关程序应用<img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255195.png"></p>
+<p>前往<a target="_blank" rel="noopener" href="https://github.com/SuLingGG/OpenWrt-Rpi/actions?query=workflow:%22Build+Raspberry+Pi+4+Lean%27s+OpenWrt%22">Action</a>获取最新的固件，解压出文件名应该类似于<code>openwrt-bcm27xx-bcm2711-rpi-4-ext4-factory.img</code>。使用镜像烧写软件<strong>balenaEtcher</strong>将img文件刷进SD卡<img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255196.png"></p>
+<blockquote>
+<p><strong>注意！ 这项操作将会抹除该SD卡上的所有内容，如果你失误选择了一块本地的磁盘来刷入镜像，恭喜你，你将会失去这块磁盘上的所有数据</strong></p>
+</blockquote>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><strong>请先不要为树莓派联网</strong></p>
+<hr>
+<p>方法一（推荐）：</p>
+<p>将固件刷入 SD 卡，<strong>断开树莓派上所有的网线连接</strong>，将 SD 卡插入树莓派通电开机，稍等 30 秒你将可以搜索到一个 SSID 为： OpenWrt 的 WIFI 热点，连接此热点，在浏览器地址栏输入：</p>
+<p><a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a></p>
+<p>即可进入 Luci 控制面板。登陆控制面板时用户名默认为 <strong>root</strong>，密码默认为 <strong>password</strong>。</p>
+<p>若没有发现热点，请给树莓派断电然后再次上电。</p>
+<hr>
+<p>方法二：</p>
+<p>将固件刷入 SD 卡，将 SD 卡插入树莓派通电开机，关闭电脑的其他网络连接，使用网线连接树莓派和电脑，当电脑提示有线网络已连接后，在浏览器输入:</p>
+<p><a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1</a></p>
+<p>来进入控制面板。登陆控制面板时用户名默认为 <strong>root</strong>，密码默认为 <strong>password</strong>。</p>
+<hr>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255197.png"></p>
+<p>登陆进入面板，进入<strong>系统-TTYD终端</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190558.png"></p>
+<p>键入以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/config/network</span><br></pre></td></tr></table></figure>
+
+<p>按 i 进入编辑模式，将框出部分改成网关&#x2F;光猫网段下的一个地址，稍微大一些，避免和光猫下的路由器发生冲突，我这里改成了192.168.1.100</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255198.png"></p>
+<p>配置完成后 按 Esc ，输入<code>:wq</code> 按回车保存 </p>
+<p>现在给树莓派断电，将树莓派的网线连入网关&#x2F;光猫，上电</p>
+<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>进入到路由器管理页面 打开-&gt;网络-&gt;接口-&gt;LAN-&gt;修改</p>
+<p>删除其他不必要的接口，只保留一个LAN</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255199.png"></p>
+<p>如图设置</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255200.png"></p>
+<p>拉到底端，保存&amp;应用</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255201.png"></p>
+<p>服务-&gt;PassWall，点击百度连接查看树莓派是否联网</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255202.png"></p>
+<p>点击上方的节点列表，自行添加节点，保存&amp;应用，涉及敏感图片这里就不作截图展示了</p>
+<p>在基本设置-&gt;主要一栏中选择相对应节点，打开主开关，保存&amp;应用，试试看能否进行谷歌连接，如果可以连上，那么树莓派设置就告一段落了。</p>
+<hr>
+<h2 id="路由器设置"><a href="#路由器设置" class="headerlink" title="路由器设置"></a>路由器设置</h2><p>进入你家的路由器管理页，他大概率被网关&#x2F;光猫的地址给挤掉了，尝试一下192.168.1.1的附近地址，我家是192.168.3.1</p>
+<p>大概这么填</p>
+<p><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104190811.png"></p>
+<p>可以看到成功的访问了谷歌<img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255203.png"></p>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>其实回顾一下并不难，折腾了好几个小时其实全都是因为对组网的不熟悉，如果你能了解清楚你家网路关系的状况那么假设将会更加顺利</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105105933.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/10/Windows%E4%B8%8BJDK%E7%9A%84%E9%85%8D%E7%BD%AE/" title="Windows下JDK的配置"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210110205838.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Windows下JDK的配置</div></div></a></div><div class="next-post pull-right"><a href="/2019/06/28/kindle%E6%8B%86%E6%9C%BA%E8%B6%8A%E7%8B%B1%E6%95%99%E7%A8%8BROOT%E7%9A%84%E5%B0%9D%E8%AF%95/" title="kindle拆机越狱教程ROOT的尝试"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105162703.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">kindle拆机越狱教程ROOT的尝试</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/01/10/Windows%E4%B8%8BJDK%E7%9A%84%E9%85%8D%E7%BD%AE/" title="Windows下JDK的配置"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210110205838.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-10</div><div class="title">Windows下JDK的配置</div></div></a></div><div><a href="/2019/06/28/kindle%E6%8B%86%E6%9C%BA%E8%B6%8A%E7%8B%B1%E6%95%99%E7%A8%8BROOT%E7%9A%84%E5%B0%9D%E8%AF%95/" title="kindle拆机越狱教程ROOT的尝试"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105162703.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-28</div><div class="title">kindle拆机越狱教程ROOT的尝试</div></div></a></div><div><a href="/2021/01/11/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%8C%E6%88%90%E9%9D%92%E5%B9%B4%E5%A4%A7%E5%AD%A6%E4%B9%A0/" title="优雅的完成青年大学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105125328.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-11</div><div class="title">优雅的完成青年大学习</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DazeCake</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/DazeCake"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DazeCake" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dazecake@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3%E6%90%AD%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">树莓派透明网关搭建流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E5%BC%80%E5%A7%8B%E4%B9%8B%E5%89%8D"><span class="toc-number">1.1.</span> <span class="toc-text">在开始之前</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E9%83%A8%E5%88%86"><span class="toc-number">1.2.</span> <span class="toc-text">树莓派部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BA%E4%BB%B6%E7%83%A7%E5%86%99"><span class="toc-number">1.2.1.</span> <span class="toc-text">固件烧写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.2.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.3.</span> <span class="toc-text">设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.3.</span> <span class="toc-text">路由器设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用VSCode和sdcc进行现代化单片机开发"/></a><div class="content"><a class="title" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发">使用VSCode和sdcc进行现代化单片机开发</a><time datetime="2022-03-28T01:27:29.000Z" title="发表于 2022-03-28 09:27:29">2022-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105125328.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Clion进行LiteLoader插件开发"/></a><div class="content"><a class="title" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发">使用Clion进行LiteLoader插件开发</a><time datetime="2022-02-20T09:17:49.000Z" title="发表于 2022-02-20 17:17:49">2022-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210926122447.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactNative安卓app逆向获取passwd加密方式初探"/></a><div class="content"><a class="title" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探">ReactNative安卓app逆向获取passwd加密方式初探</a><time datetime="2021-09-25T16:00:03.000Z" title="发表于 2021-09-26 00:00:03">2021-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VHDL学习笔记"/></a><div class="content"><a class="title" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记">VHDL学习笔记</a><time datetime="2021-09-07T05:09:40.000Z" title="发表于 2021-09-07 13:09:40">2021-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210826120000.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于maven仓库在gradle本地复用的误区"/></a><div class="content"><a class="title" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区">关于maven仓库在gradle本地复用的误区</a><time datetime="2021-08-26T03:02:02.000Z" title="发表于 2021-08-26 11:02:02">2021-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By DazeCake</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f0721fa4ce0b27824154',
+      clientSecret: 'f6d3dd9583ac3a55862057c28c1d7aca59466fdf',
+      repo: 'DazeCake.github.io',
+      owner: 'DazeCake',
+      admin: ['DazeCake'],
+      id: '15b423694f558eb0a21d007793c0316e',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用VSCode和sdcc进行现代化单片机开发 | DazeCake的工坊</title><meta name="author" content="DazeCake,dazecake@mamoe.net"><meta name="copyright" content="DazeCake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言这个学期学校开设了单片机课程，这是一门很有意思的课，之前也有过使用Ardunio UNO外驱舵机开发寝室NFC门禁的经历。在学校课程中学到了更多的诸如仿真的技巧，收益颇多。在当时基础知识不足的情况下反复被我擦写的板子居然能挺过来真的应该给他上柱香。 当然，学校课程所使用的工具都较老，尤其是keil，点名批评，使用起来非常的恼火，各类跳转搜索功能几乎是没有，界面老旧且交互完全算不上友好。如果一定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用VSCode和sdcc进行现代化单片机开发">
+<meta property="og:url" content="http://example.com/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="DazeCake的工坊">
+<meta property="og:description" content="前言这个学期学校开设了单片机课程，这是一门很有意思的课，之前也有过使用Ardunio UNO外驱舵机开发寝室NFC门禁的经历。在学校课程中学到了更多的诸如仿真的技巧，收益颇多。在当时基础知识不足的情况下反复被我擦写的板子居然能挺过来真的应该给他上柱香。 当然，学校课程所使用的工具都较老，尤其是keil，点名批评，使用起来非常的恼火，各类跳转搜索功能几乎是没有，界面老旧且交互完全算不上友好。如果一定">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png">
+<meta property="article:published_time" content="2022-03-28T01:27:29.000Z">
+<meta property="article:modified_time" content="2022-11-20T14:55:10.339Z">
+<meta property="article:author" content="DazeCake">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用VSCode和sdcc进行现代化单片机开发',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-20 22:55:10'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png')"><nav id="nav"><span id="blog-info"><a href="/" title="DazeCake的工坊"><span class="site-name">DazeCake的工坊</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用VSCode和sdcc进行现代化单片机开发</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-28T01:27:29.000Z" title="发表于 2022-03-28 09:27:29">2022-03-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-20T14:55:10.339Z" title="更新于 2022-11-20 22:55:10">2022-11-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用VSCode和sdcc进行现代化单片机开发"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期学校开设了单片机课程，这是一门很有意思的课，之前也有过使用<code>Ardunio UNO</code>外驱舵机开发寝室NFC门禁的经历。在学校课程中学到了更多的诸如仿真的技巧，收益颇多。在当时基础知识不足的情况下反复被我擦写的板子居然能挺过来真的应该给他上柱香。</p>
+<p>当然，学校课程所使用的工具都较老，尤其是<code>keil</code>，点名批评，使用起来非常的恼火，各类跳转搜索功能几乎是没有，界面老旧且交互完全算不上友好。如果一定要一个理由来使用它，那就是sdcc的编译结果相较keil稍大。但是这和我一个业余玩家有什么关系呢？整！</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="C-C"><a href="#C-C" class="headerlink" title="C&#x2F;C++"></a>C&#x2F;C++</h2><p>vsc必备的c语言开发插件，不必多说</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255000.png"></p>
+<h2 id="PlatformIO"><a href="#PlatformIO" class="headerlink" title="PlatformIO"></a>PlatformIO</h2><p><code>PlatformIO</code>是一款vsc插件，适用于各类单片机的开发，非常好用。</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255001.png"></p>
+<p>安装以后会自动下载依赖，重启vsc后即可载入，需要注意的是，依赖下载会较慢，建议下载前挂上代理。</p>
+<h1 id="工程创建"><a href="#工程创建" class="headerlink" title="工程创建"></a>工程创建</h1><p>进入<code>PIO Home</code>，点击<code>New Project</code>，根据提示创建工程</p>
+<p>我们要进行51单片机开发的话，选择<code>STC89C52RC</code>即可，虽说是52，其实差不多啦，<code>8052.h</code>实质上也是在<code>#include &lt;8051.h&gt;</code>后增加了一些定义而已。</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255002.png"></p>
+<p>创建完成以后的项目结构如图所示，这里以我的课设流水灯为例，插件将为我们配置好所需的内容</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255003.png"></p>
+<h1 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h1><h2 id="代码爆红"><a href="#代码爆红" class="headerlink" title="代码爆红"></a>代码爆红</h2><p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255004.png"></p>
+<p>写上一些代码，会发现它的<code>include</code>爆红了，显然是<code>includePath</code>出问题了，自然而然的就想到要编辑一下<code>.vscode/c_cpp_properties.json</code>，这里其实是一个错误的操作，至于原因暂且按下不表。</p>
+<p>查找了一下PIO的工具链路径，递归导入进去</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255005.png"></p>
+<p>再看眼代码，头文件确实是可以导入了，但是引脚定义又炸了</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255006.png"></p>
+<p>很麻，看眼头文件怎么定义的吧</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255007.png"></p>
+<p>查了一下，<code>__sfr</code>是<code>sdcc</code>独有的定义风格，表示命名地址空间，配合<code>__at</code>绝对寻址可以进行针脚的定义和操作。虽然在vsc中爆红，但是实际上在使用<code>sdcc</code>进行编译时编译器会自动转化，实测也确实能编译，但是这也太难受了，必须给他安排明白了。</p>
+<p>在各类搜索引擎中畅游了半天，找到的都是直接<strong>关闭语法</strong>提示这种暴力手段，那用vsc开发还有什么意义呢？终于，找了半天找到了一篇<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42992084/article/details/109375443">blog</a>详细的写了sdcc的编译规则，其中提到</p>
+<blockquote>
+<p>首先要了解的是，在使用 sdcc进行编译的时候，是会自动在进行编译前预定义 <code>__SDCC</code> 宏的，这样就好办，利用条件编译，区别智能提示运行环境和 SDCC实际编译环境，用空的 define去取代这些关键字，寄存器也都用宏代替，然后在 SDCC实际编译时调用原来 C51语法的寄存器定义。</p>
+</blockquote>
+<p>找了下，库中确实有一个<code>lint.h</code>文件预定义了各类独有关键字的宏，将其引入到源码</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255008.png"></p>
+<p>很好，终于不报错了，实际上这样做是把代码区分到智能提示和实际编译两个环境</p>
+<blockquote>
+<ul>
+<li>在实际编译时，SDCC 编译器会预定义 <code>__SDCC</code> 宏，因此实际编译时使用实际有效的寄存器定义；</li>
+<li>而在智能提示环境，用空的宏取代所有关键字，消除关键字的不兼容，然后用一个宏定义寄存器，保证寄存器名智能提示依然可以使用。这里将寄存器定义为 char* 指针解引用的左值表达式，目的是为迎合语法上对寄存器赋值是合法的，括号里的值可以是任意值，意义不大，当然如果使用寄存器本来的值更合适，但处理起来比较麻烦。</li>
+</ul>
+</blockquote>
+<p>原文主要是为了移植<code>keil</code>代码，我们进行原生<code>sdcc style</code>进行编写的话，就没有问题了，实际上此类关键字诸如<code>sfr</code>实际上是非标<code>ANSI C</code>，适用于单片机寄存器地址操作，采用标准C的强制转换和指针的概念来实现访问MCU的寄存器，本质实现其实是<code>(*(volatile unsigned char *)0x**)</code>，以此方便程序操作单片机。</p>
+<h2 id="config重置"><a href="#config重置" class="headerlink" title="config重置"></a>config重置</h2><p>现在我们终于可以正常进行开发了吧，实际上并不是，如果你在刚刚的操作过程中一不小心关闭了vsc，再次打开以后你会发现</p>
+<p><strong>又他娘的爆红了！！！</strong></p>
+<p>检查<code>.vscode/c_cpp_properties.json</code>发现，整个文件都被重置了，这可咋整。</p>
+<p>仔细阅读了一下<code>c_cpp_properties.json</code>，发现它在头部包含了一串注释</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// !!! WARNING !!! AUTO-GENERATED FILE!</span></span><br><span class="line"><span class="comment">// PLEASE DO NOT MODIFY IT AND USE &quot;platformio.ini&quot;:</span></span><br><span class="line"><span class="comment">// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PlatformIO&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;includePath&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/include&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/src&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/**&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;browse&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;limitSymbolsToIncludedHeaders&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                    <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/include&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/src&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;&quot;</span></span><br><span class="line">                <span class="punctuation">]</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;defines&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;F_CPU=11059200&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;HEAP_SIZE=128&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;PLATFORMIO=50205&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compilerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/bin/sdcc.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compilerArgs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;-mmcs51&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>好家伙，原来这玩意是个自动生成配置，我们不应该去手动管理它，而是通过上级配置<code>platformio.ini</code>来管理</p>
+<p>查阅了官方文档后，在<code>platformio.ini</code>中引入工具链</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; PlatformIO Project Configuration File</span></span><br><span class="line"><span class="comment">;</span></span><br><span class="line"><span class="comment">;   Build options: build flags, source filter</span></span><br><span class="line"><span class="comment">;   Upload options: custom upload port, speed and extra flags</span></span><br><span class="line"><span class="comment">;   Library options: dependencies, extra library storages</span></span><br><span class="line"><span class="comment">;   Advanced options: extra scripting</span></span><br><span class="line"><span class="comment">;</span></span><br><span class="line"><span class="comment">; Please visit documentation for the other options and examples</span></span><br><span class="line"><span class="comment">; https://docs.platformio.org/page/projectconf.html</span></span><br><span class="line"></span><br><span class="line"><span class="section">[env:stc89c52rc]</span></span><br><span class="line"><span class="attr">platform</span> = intel_mcs51</span><br><span class="line"><span class="attr">board</span> = stc89c52rc</span><br><span class="line"><span class="attr">lib_extra_dirs</span> =</span><br><span class="line">    C:\Users\DazeCake\.platformio\packages\toolchain-sdcc\include</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>保存刷新后，<code>c_cpp_properties.json</code>也自动为我们刷新了<code>includePath</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// !!! WARNING !!! AUTO-GENERATED FILE!</span></span><br><span class="line"><span class="comment">// PLEASE DO NOT MODIFY IT AND USE &quot;platformio.ini&quot;:</span></span><br><span class="line"><span class="comment">// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PlatformIO&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;includePath&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/include&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/src&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/mcs51&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/asm&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/ds390&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/ds400&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/hc08&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/pic14&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/pic16&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/z180&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;browse&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;limitSymbolsToIncludedHeaders&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                    <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/include&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;c:/Users/DazeCake/Documents/PlatformIO/Projects/LED/src&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/mcs51&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/asm&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/ds390&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/ds400&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/hc08&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/pic14&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/pic16&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/include/z180&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="string">&quot;&quot;</span></span><br><span class="line">                <span class="punctuation">]</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;defines&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;F_CPU=11059200&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;HEAP_SIZE=128&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;PLATFORMIO=50205&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compilerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;C:/Users/DazeCake/.platformio/packages/toolchain-sdcc/bin/sdcc.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compilerArgs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;-mmcs51&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>虽说傻乎乎的没用vsc自带的递归搜索，但是这样也比之前智能多了</p>
+<h1 id="仿真"><a href="#仿真" class="headerlink" title="仿真"></a>仿真</h1><p>还是走个过场来仿真一下吧</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255009.png"></p>
+<p>直接复制编译后的文件路径</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255010.png"></p>
+<p>填入仿真程序入口</p>
+<p><img src="https://pic-1253345461.cos.ap-shanghai.myqcloud.com/202211202255011.png"></p>
+<p>运行结果正常</p>
+<p>![](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog%E6%B5%81%E6%B0%B4%E7%81%AF">https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog流水灯</a> - Proteus 8 Professional - 原理图绘制 2022-03-28 10-55-15 00_00_03-00_00_06.gif)</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发"><img class="cover" src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105125328.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用Clion进行LiteLoader插件开发</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210104222504.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DazeCake</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/DazeCake"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/DazeCake" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:dazecake@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-C"><span class="toc-number">2.1.</span> <span class="toc-text">C&#x2F;C++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PlatformIO"><span class="toc-number">2.2.</span> <span class="toc-text">PlatformIO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">工程创建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99"><span class="toc-number">4.</span> <span class="toc-text">代码编写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%88%86%E7%BA%A2"><span class="toc-number">4.1.</span> <span class="toc-text">代码爆红</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#config%E9%87%8D%E7%BD%AE"><span class="toc-number">4.2.</span> <span class="toc-text">config重置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F"><span class="toc-number">5.</span> <span class="toc-text">仿真</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">5.1.</span> <span class="toc-text">编译</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog20220328111055.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用VSCode和sdcc进行现代化单片机开发"/></a><div class="content"><a class="title" href="/2022/03/28/%E4%BD%BF%E7%94%A8VSCode%E5%92%8Csdcc%E8%BF%9B%E8%A1%8C%E7%8E%B0%E4%BB%A3%E5%8C%96%E5%8D%95%E7%89%87%E6%9C%BA%E5%BC%80%E5%8F%91/" title="使用VSCode和sdcc进行现代化单片机开发">使用VSCode和sdcc进行现代化单片机开发</a><time datetime="2022-03-28T01:27:29.000Z" title="发表于 2022-03-28 09:27:29">2022-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210105125328.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Clion进行LiteLoader插件开发"/></a><div class="content"><a class="title" href="/2022/02/20/%E4%BD%BF%E7%94%A8Clion%E8%BF%9B%E8%A1%8CLiteLoader%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" title="使用Clion进行LiteLoader插件开发">使用Clion进行LiteLoader插件开发</a><time datetime="2022-02-20T09:17:49.000Z" title="发表于 2022-02-20 17:17:49">2022-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210926122447.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactNative安卓app逆向获取passwd加密方式初探"/></a><div class="content"><a class="title" href="/2021/09/26/ReactNative%E5%AE%89%E5%8D%93app%E9%80%86%E5%90%91%E8%8E%B7%E5%8F%96passwd%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F%E5%88%9D%E6%8E%A2/" title="ReactNative安卓app逆向获取passwd加密方式初探">ReactNative安卓app逆向获取passwd加密方式初探</a><time datetime="2021-09-25T16:00:03.000Z" title="发表于 2021-09-26 00:00:03">2021-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210907150131.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VHDL学习笔记"/></a><div class="content"><a class="title" href="/2021/09/07/VHDL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="VHDL学习笔记">VHDL学习笔记</a><time datetime="2021-09-07T05:09:40.000Z" title="发表于 2021-09-07 13:09:40">2021-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区"><img src="https://cdn.jsdelivr.net/gh/DazeCake/image-host/blog/20210826120000.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于maven仓库在gradle本地复用的误区"/></a><div class="content"><a class="title" href="/2021/08/26/%E5%85%B3%E4%BA%8Emaven%E4%BB%93%E5%BA%93%E5%9C%A8gradle%E6%9C%AC%E5%9C%B0%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AF%AF%E5%8C%BA/" title="关于maven仓库在gradle本地复用的误区">关于maven仓库在gradle本地复用的误区</a><time datetime="2021-08-26T03:02:02.000Z" title="发表于 2021-08-26 11:02:02">2021-08-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By DazeCake</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f0721fa4ce0b27824154',
+      clientSecret: 'f6d3dd9583ac3a55862057c28c1d7aca59466fdf',
+      repo: 'DazeCake.github.io',
+      owner: 'DazeCake',
+      admin: ['DazeCake'],
+      id: 'abbb9767990b3e78e4eba5ec945b499a',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
